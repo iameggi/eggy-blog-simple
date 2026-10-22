@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{if .IsHome}}Eggy fachrurrozi{{else}}{{.Title}} | Eggy fachrurrozi{{end}}</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; background: #000; color: #eee; }
+    body {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+    header, footer { text-align: center; }
+    header { border-bottom: 1px solid; padding-bottom: 20px; }
+    .site-name { margin: 0 0 12px; font-size: 24px; font-weight: bold; }
+    nav a { white-space: nowrap; }
+    .nav-contact { margin-top: 8px; font-size: 14px; }
+    a { color: #8ab4f8; }
+    a:visited { color: #c58af9; }
+    a:hover { color: #000; background: #eee; }
+    a:focus-visible { outline: 2px dashed currentColor; outline-offset: 3px; }
+    h1 { font-size: 24px; line-height: 1.3; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 18px; }
+    section, article { margin-top: 32px; }
+    .post-list { list-style: none; padding: 0; }
+    .post-list li { display: flex; gap: 16px; margin: 8px 0; }
+    time { color: #aaa; white-space: nowrap; }
+    pre { overflow-x: auto; padding: 12px; border: 1px solid #888; }
+    code { font-family: inherit; font-size: inherit; }
+    blockquote { margin-left: 0; padding-left: 16px; border-left: 3px solid #888; }
+    img { max-width: 100%; height: auto; }
+    .about-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: start; }
+    figure { margin: 0; }
+    /* .section-image { display: block; width: 100%; border: 1px solid #888; filter: grayscale(1); } */
+    figcaption { margin-top: 8px; color: #aaa; font-size: 12px; }
+    .section-copy p:first-child { margin-top: 0; }
+    .section-copy p:last-child { margin-bottom: 0; }
+    .gearx-image { margin-bottom: 20px; }
+    hr { border: 0; border-top: 1px solid; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid; font-size: 14px; }
+    @media (max-width: 480px) {
+      body { margin: 24px auto; padding: 0 16px; }
+      .post-list li { display: block; margin: 16px 0; }
+      .post-list time { display: block; font-size: 14px; }
+      .about-layout { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="site-name"><a href="{{.Root}}/index.html">Eggy fachrurrozi</a></p>
+    <nav aria-label="Navigasi utama">
+      { <a href="{{.Root}}/index.html#blog">Blog Post</a> |
+      <a href="{{.Root}}/index.html#about">About Me</a> |
+      <a href="{{.Root}}/index.html#gearx">GearX</a> |
+      <a href="{{.Root}}/index.html#project">Other Project</a> }
+      <div class="nav-contact">
+        <a href="mailto:eggifhr@gmail.com" target="_blank">Email</a> |
+        <a href="https://github.com/iameggi" target="_blank">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {{if .IsHome}}
+    <h1>Notes &amp; project.</h1>
+
+    <section id="blog" aria-labelledby="blog-heading">
+      <h2 id="blog-heading">Blog Post</h2>
+      <ul class="post-list">
+        {{range .Blogs}}
+        <li><time datetime="{{.Date.Format "2006-01-02"}}">({{.Date.Format "02-01-2006"}})</time> <a href="{{.URL}}">{{.Title}}</a></li>
+        {{else}}
+        <li>Empty</li>
+        {{end}}
+      </ul>
+    </section>
+
+    <section id="project" aria-labelledby="project-heading">
+      <h2 id="project-heading">Other Project</h2>
+      <ul class="post-list">
+        {{range .Projects}}
+        <li><time datetime="{{.Date.Format "2006-01-02"}}">{{.Date.Format "02-01-2006"}}</time> <a href="{{.URL}}">{{.Title}}</a></li>
+        {{else}}
+        <li>Belum ada proyek.</li>
+        {{end}}
+      </ul>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me . . .</h2>
+      <div class="about-layout">
+        <figure>
+          <img class="section-image" src="{{.Root}}/images/about-me.jpg" alt="me" width="640" height="480" loading="lazy" decoding="async">
+          <figcaption>Eggy Fachrurrozi.</figcaption>
+        </figure>
+        <div class="section-copy">
+        <p>Hi, I'm Eggy, and yep, I'm just another programmer in this world. I do backend and full-stack development, mostly living in Golang, Rust, and PHP (back in the day). I love dissecting low-level architectures, and naturally, I'm a big fan of the concept: No hidden control flow. No hidden memory allocations. No preprocessor, no macros.</p>
+        <p>When my brain needs an escape from queueing theory or microservices, you'll catch me playing games, watching anime or movies, and just zoning out to my go-to playlist.</p>
+       </div>
+      </div>
+    </section>
+
+    <section id="gearx" aria-labelledby="gearx-heading">
+      <h2 id="gearx-heading">GearX</h2>
+      <figure class="gearx-image">
+        <img class="section-image" src="{{.Root}}/images/gearx.jpg" alt="Foto dummy laptop dan perlengkapan kerja di atas meja kayu." width="960" height="540" loading="lazy" decoding="async">
+        <figcaption>02 / Notes, tools &amp; experiments.</figcaption>
+      </figure>
+      <div class="section-copy">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum.</p>
+        <p>Donec ullamcorper nulla non metus auctor fringilla. Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.</p>
+      </div>
+    </section>
+    {{else}}
+    <article>
+      <h1>{{.Post.Title}}</h1>
+      <p><time datetime="{{.Post.Date.Format "2006-01-02"}}">{{.Post.Date.Format "02-01-2006"}}</time></p>
+      {{.Post.Content}}
+    </article>
+    <p><a href="{{.Root}}/index.html">&larr; Kembali ke beranda</a></p>
+    {{end}}
+  </main>
+
+  <footer>&mdash; This is the footer, idk what to fill it with.</footer>
+</body>
+</html>
